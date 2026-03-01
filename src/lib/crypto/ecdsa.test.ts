@@ -86,7 +86,7 @@ describe('ecdsa', () => {
             expect(crypto.subtle.sign).toHaveBeenCalledWith(
                 { name: 'ECDSA', hash: 'SHA-256' },
                 expect.anything(),
-                data,
+                data.buffer as ArrayBuffer,
             );
         });
 
@@ -116,7 +116,7 @@ describe('ecdsa', () => {
                 { name: 'ECDSA', hash: 'SHA-256' },
                 expect.anything(),
                 signature,
-                data,
+                data.buffer as ArrayBuffer,
             );
         });
 
