@@ -1,0 +1,30 @@
+name: E2E
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: bunx playwright install chromium --with-deps
+
+      - name: Build extension
+        run: bun run build
+
+      - name: E2E tests
+        run: |
+          sudo apt-get update && sudo apt-get install -y xvfb
+          xvfb-run bun run test:e2e
