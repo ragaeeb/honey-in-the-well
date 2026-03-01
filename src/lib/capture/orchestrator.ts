@@ -16,7 +16,7 @@ let lastCaptureTime = 0;
 
 async function throttledCaptureVisibleTab(
     windowId: number,
-    options: chrome.tabs.CaptureVisibleTabOptions,
+    options: chrome.extensionTypes.ImageDetails,
 ): Promise<string> {
     const elapsed = Date.now() - lastCaptureTime;
     if (elapsed < CAPTURE_INTERVAL_MS) {

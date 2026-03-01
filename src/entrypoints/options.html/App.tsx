@@ -70,10 +70,7 @@ export default function App() {
 
     if (!settings) {
         return (
-            <div
-                className="max-w-2xl mx-auto p-8 flex items-center gap-2"
-                aria-busy="true"
-            >
+            <div className="max-w-2xl mx-auto p-8 flex items-center gap-2" aria-busy="true">
                 <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
                 <p className="text-muted-foreground">Loading...</p>
             </div>

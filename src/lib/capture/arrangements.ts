@@ -39,7 +39,7 @@ export type ScrollPosition = {
     scrollX: number;
     scrollY: number;
     clip: ClipRect;
-    capture: ClipRect;
+    capture: ClipRect & { delay?: number; bufferBottom?: number };
     hideElts?: Element[];
     yAdjust?: number;
 };
@@ -58,11 +58,15 @@ export class Arrangements {
     addedHeightChange = false;
     lastPosition: ScrollPosition | null = null;
     dimensions: PageDimensions;
+    origWindowX: number;
+    origWindowY: number;
 
     private docElt = document.documentElement;
     private body = document.body;
 
-    constructor(_origBodyHeightZero: boolean, _origWindowX: number, _origWindowY: number) {
+    constructor(_origBodyHeightZero: boolean, origWindowX: number, origWindowY: number) {
+        this.origWindowX = origWindowX;
+        this.origWindowY = origWindowY;
         this.dimensions = this.getDimensions();
     }
 

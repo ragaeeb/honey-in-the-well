@@ -6,7 +6,10 @@ const STORAGE_KEY = 'hitw_settings';
 describe('settings-store', () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        chrome.runtime.lastError = null;
+        Object.defineProperty(chrome.runtime, 'lastError', {
+            configurable: true,
+            value: null,
+        });
 
         vi.mocked(chrome.storage.local.get).mockImplementation((_keys, cb) => {
             (cb as (result: Record<string, unknown>) => void)({});
@@ -100,7 +103,10 @@ describe('settings-store', () => {
 
         it('should reject when chrome.runtime.lastError is set', async () => {
             vi.mocked(chrome.storage.local.set).mockImplementation((_items, cb) => {
-                chrome.runtime.lastError = { message: 'Storage quota exceeded' };
+                Object.defineProperty(chrome.runtime, 'lastError', {
+                    configurable: true,
+                    value: { message: 'Storage quota exceeded' },
+                });
                 if (cb) {
                     cb();
                 }
@@ -125,7 +131,10 @@ describe('settings-store', () => {
 
         it('should reject when chrome.runtime.lastError is set', async () => {
             vi.mocked(chrome.storage.local.set).mockImplementation((_items, cb) => {
-                chrome.runtime.lastError = { message: 'Storage error' };
+                Object.defineProperty(chrome.runtime, 'lastError', {
+                    configurable: true,
+                    value: { message: 'Storage error' },
+                });
                 if (cb) {
                     cb();
                 }

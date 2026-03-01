@@ -25,7 +25,10 @@ describe('settings integration flow', () => {
         vi.mocked(chrome.storage.local.set).mockImplementation(
             (items: Record<string, unknown>, callback?: () => void) => {
                 Object.assign(storage, items);
-                (chrome.runtime as { lastError: null }).lastError = null;
+                Object.defineProperty(chrome.runtime, 'lastError', {
+                    configurable: true,
+                    value: null,
+                });
                 callback?.();
             },
         );

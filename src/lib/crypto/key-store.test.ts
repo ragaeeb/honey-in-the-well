@@ -15,7 +15,10 @@ const mockKeyPair = {
 describe('key-store', () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        chrome.runtime.lastError = null;
+        Object.defineProperty(chrome.runtime, 'lastError', {
+            configurable: true,
+            value: null,
+        });
 
         vi.mocked(crypto.subtle.generateKey).mockResolvedValue({
             publicKey: {} as CryptoKey,
@@ -87,9 +90,12 @@ describe('key-store', () => {
 
         it('should reject when chrome.storage reports an error', async () => {
             vi.mocked(chrome.storage.local.set).mockImplementation((_items, callback) => {
-                chrome.runtime.lastError = {
-                    message: 'Storage quota exceeded',
-                } as chrome.runtime.LastError;
+                Object.defineProperty(chrome.runtime, 'lastError', {
+                    configurable: true,
+                    value: {
+                        message: 'Storage quota exceeded',
+                    } as chrome.runtime.LastError,
+                });
                 callback?.();
             });
 
@@ -150,7 +156,7 @@ describe('key-store', () => {
                 callback?.();
             });
 
-            const _result = await getOrCreateKeyPair();
+            await getOrCreateKeyPair();
 
             expect(setCalls).toHaveLength(1);
             expect((setCalls[0] as Record<string, unknown>).hitw_ecdsa_keypair).toEqual(mockKeyPair);

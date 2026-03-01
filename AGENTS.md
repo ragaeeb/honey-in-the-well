@@ -20,7 +20,7 @@ Guidelines for AI coding agents working on this repository.
 ### Language & Style
 
 - TypeScript with `strict: true` and `target: ESNext`.
-- Use **Biome** for linting and formatting (not ESLint/Prettier). Run `bun run check` to auto-fix.
+- Use **Biome** for linting and formatting (not ESLint/Prettier). Run `bun run lint` to lint + auto-fix.
 - Indent with **tabs**. Biome enforces this.
 - No unused variables or imports (enforced by Biome as errors).
 - Non-null assertions (`!`) are allowed — common in Chrome extension code.
@@ -81,11 +81,8 @@ vi.mocked(chrome.storage.local.get).mockImplementation((_keys, cb) => {
 | Start dev server | `bun run dev` |
 | Build for production | `bun run build` |
 | Run all tests | `bun run test` |
-| Run integration tests only | `bun run test:integration` |
-| Run tests in watch mode | `bun run test:watch` |
 | Coverage report | `bun run test:coverage` |
-| Lint + format | `bun run check` |
-| Type-check | `bun run typecheck` |
+| Lint + format (auto-fix) | `bun run lint` |
 | E2E tests | `bun run build && bun run test:e2e` |
 
 ## Extension Permissions

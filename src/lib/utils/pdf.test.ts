@@ -101,8 +101,10 @@ describe('generatePdf', () => {
     });
 
     it('should add pages for a4 format when content exceeds page height', async () => {
-        const { __mocks } = await import('jspdf');
-        const { addPageFn } = __mocks as { addPageFn: ReturnType<typeof vi.fn> };
+        const { __mocks } = (await import('jspdf')) as unknown as {
+            __mocks: { addPageFn: ReturnType<typeof vi.fn> };
+        };
+        const { addPageFn } = __mocks;
         addPageFn.mockClear();
 
         const tallImages = [makeImage(595, 400), makeImage(595, 400), makeImage(595, 400)];
@@ -112,8 +114,10 @@ describe('generatePdf', () => {
     });
 
     it('should not add pages for full format', async () => {
-        const { __mocks } = await import('jspdf');
-        const { addPageFn } = __mocks as { addPageFn: ReturnType<typeof vi.fn> };
+        const { __mocks } = (await import('jspdf')) as unknown as {
+            __mocks: { addPageFn: ReturnType<typeof vi.fn> };
+        };
+        const { addPageFn } = __mocks;
         addPageFn.mockClear();
 
         const images = [makeImage(500, 2000), makeImage(500, 2000)];

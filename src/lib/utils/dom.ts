@@ -14,7 +14,8 @@ export type ElementBox = {
 function getTransformMatrix(el: HTMLElement): DOMMatrix | WebKitCSSMatrix | undefined {
     if (window.DOMMatrix || window.WebKitCSSMatrix) {
         const style = window.getComputedStyle(el);
-        const transform = style.transform || (style as never).webkitTransform;
+        const transform =
+            style.transform || (style as CSSStyleDeclaration & { webkitTransform?: string }).webkitTransform;
         if (!transform || transform === 'none') {
             return undefined;
         }
@@ -23,7 +24,7 @@ function getTransformMatrix(el: HTMLElement): DOMMatrix | WebKitCSSMatrix | unde
                 return new DOMMatrix(transform);
             }
             if (window.WebKitCSSMatrix) {
-                return new (window.WebKitCSSMatrix as never)(transform);
+                return new (window.WebKitCSSMatrix as { new (value: string): WebKitCSSMatrix })(transform);
             }
         } catch {
             return undefined;
@@ -124,7 +125,6 @@ export class SearchNodes {
     private search: Element[];
     private isBfs: boolean;
     private autoAdd: boolean;
-    private onlyElementNodes: boolean;
     private ignoreNodeNames: Set<string>;
     private ignoreHidden: boolean;
 
@@ -133,7 +133,6 @@ export class SearchNodes {
         const cfg = { ...SEARCH_DEFAULTS, ...opts };
         this.isBfs = cfg.isBfs;
         this.autoAdd = cfg.autoAdd;
-        this.onlyElementNodes = cfg.onlyElementNodes;
         this.ignoreNodeNames = cfg.ignoreNodeNames;
         this.ignoreHidden = cfg.ignoreHidden;
         this.search = this.root ? [this.root] : [];
