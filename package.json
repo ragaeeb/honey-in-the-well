@@ -34,8 +34,9 @@
     "scripts": {
         "dev": "wxt",
         "build": "bun run lint && tsc --noEmit && wxt build",
+        "format": "biome check --write .",
         "zip": "wxt zip",
-        "lint": "biome check --write .",
+        "lint": "biome check .",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
         "test:e2e": "playwright test",

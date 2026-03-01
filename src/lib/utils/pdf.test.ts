@@ -110,7 +110,7 @@ describe('generatePdf', () => {
         const tallImages = [makeImage(595, 400), makeImage(595, 400), makeImage(595, 400)];
         await generatePdf(tallImages, 1, 'a4');
 
-        expect(addPageFn.mock.calls.length).toBeGreaterThanOrEqual(0);
+        expect(addPageFn.mock.calls.length).toBeGreaterThan(0);
     });
 
     it('should not add pages for full format', async () => {
