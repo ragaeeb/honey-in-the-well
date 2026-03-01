@@ -67,7 +67,7 @@ describe('crypto integration - sign and verify round-trip', () => {
 
         const payload = JSON.stringify(metadata);
         const encoded = new TextEncoder().encode(payload);
-        const isValid = await verifySignature(keyPair.publicKey, sigBuffer, encoded);
+        const isValid = await verifySignature(keyPair.publicKey, sigBuffer, encoded.buffer as ArrayBuffer);
         expect(isValid).toBe(true);
     });
 

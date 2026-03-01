@@ -115,10 +115,7 @@ export default function App() {
 
     if (loading) {
         return (
-            <div
-                className="flex items-center justify-center min-h-screen"
-                aria-busy="true"
-            >
+            <div className="flex items-center justify-center min-h-screen" aria-busy="true">
                 <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" aria-hidden />
             </div>
         );

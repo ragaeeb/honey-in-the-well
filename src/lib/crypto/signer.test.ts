@@ -63,7 +63,7 @@ describe('signer', () => {
             expect(crypto.subtle.sign).toHaveBeenCalledWith(
                 { name: 'ECDSA', hash: 'SHA-256' },
                 expect.anything(),
-                expectedPayload,
+                expectedPayload.buffer as ArrayBuffer,
             );
         });
 

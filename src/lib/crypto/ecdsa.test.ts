@@ -72,7 +72,7 @@ describe('ecdsa', () => {
     describe('signData', () => {
         it('should sign data with the private key and return signature buffer', async () => {
             const data = new TextEncoder().encode('hello');
-            const result = await signData(mockPrivateKeyJwk, data);
+            const result = await signData(mockPrivateKeyJwk, data.buffer as ArrayBuffer);
 
             expect(result).toBeInstanceOf(ArrayBuffer);
             expect(new Uint8Array(result)).toEqual(new Uint8Array([1, 2, 3, 4, 5]));
@@ -86,14 +86,14 @@ describe('ecdsa', () => {
             expect(crypto.subtle.sign).toHaveBeenCalledWith(
                 { name: 'ECDSA', hash: 'SHA-256' },
                 expect.anything(),
-                data,
+                data.buffer as ArrayBuffer,
             );
         });
 
         it('should throw on invalid JWK', async () => {
             const data = new TextEncoder().encode('hello');
 
-            await expect(signData({} as JsonWebKey, data)).rejects.toThrow('Invalid JWK');
+            await expect(signData({} as JsonWebKey, data.buffer as ArrayBuffer)).rejects.toThrow('Invalid JWK');
         });
     });
 
@@ -102,7 +102,7 @@ describe('ecdsa', () => {
             const data = new TextEncoder().encode('hello');
             const signature = createMockArrayBuffer([1, 2, 3]);
 
-            const result = await verifySignature(mockPublicKeyJwk, signature, data);
+            const result = await verifySignature(mockPublicKeyJwk, signature, data.buffer as ArrayBuffer);
 
             expect(result).toBe(true);
             expect(crypto.subtle.importKey).toHaveBeenCalledWith(
@@ -116,7 +116,7 @@ describe('ecdsa', () => {
                 { name: 'ECDSA', hash: 'SHA-256' },
                 expect.anything(),
                 signature,
-                data,
+                data.buffer as ArrayBuffer,
             );
         });
 
@@ -125,7 +125,7 @@ describe('ecdsa', () => {
             const data = new TextEncoder().encode('hello');
             const signature = createMockArrayBuffer([1, 2, 3]);
 
-            const result = await verifySignature(mockPublicKeyJwk, signature, data);
+            const result = await verifySignature(mockPublicKeyJwk, signature, data.buffer as ArrayBuffer);
 
             expect(result).toBe(false);
         });
@@ -134,7 +134,9 @@ describe('ecdsa', () => {
             const data = new TextEncoder().encode('hello');
             const signature = createMockArrayBuffer([1, 2, 3]);
 
-            await expect(verifySignature({} as JsonWebKey, signature, data)).rejects.toThrow('Invalid JWK');
+            await expect(verifySignature({} as JsonWebKey, signature, data.buffer as ArrayBuffer)).rejects.toThrow(
+                'Invalid JWK',
+            );
         });
     });
 
@@ -178,7 +180,7 @@ describe('ecdsa', () => {
 
     describe('arrayBufferToBase64', () => {
         it('should convert ArrayBuffer to base64 string', () => {
-            const buffer = new TextEncoder().encode('hello').buffer;
+            const buffer = new TextEncoder().encode('hello').buffer as ArrayBuffer;
 
             const result = arrayBufferToBase64(buffer);
 

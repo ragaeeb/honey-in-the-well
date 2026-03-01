@@ -57,8 +57,11 @@ test.describe('Extension E2E', () => {
         const heading = optionsPage.locator('h1');
         await expect(heading).toContainText('Settings');
 
-        const apiInput = optionsPage.locator('#apiEndpoint');
-        await expect(apiInput).toBeVisible();
+        const imageFormatSelect = optionsPage.locator('#imageFormat');
+        await expect(imageFormatSelect).toBeVisible();
+
+        const pdfFormatSelect = optionsPage.locator('#pdfFormat');
+        await expect(pdfFormatSelect).toBeVisible();
 
         const saveButton = optionsPage.locator('button', {
             hasText: 'Save Settings',
@@ -99,8 +102,8 @@ test.describe('Extension E2E', () => {
         await optionsPage.goto(`chrome-extension://${extensionId}/options.html`);
         await optionsPage.waitForLoadState('domcontentloaded');
 
-        const apiInput = optionsPage.locator('#apiEndpoint');
-        await apiInput.fill('https://api.test.example.com');
+        const imageFormatSelect = optionsPage.locator('#imageFormat');
+        await imageFormatSelect.selectOption('jpg');
 
         const saveButton = optionsPage.locator('button', {
             hasText: 'Save Settings',
@@ -109,5 +112,8 @@ test.describe('Extension E2E', () => {
 
         const savedText = optionsPage.locator('text=Saved');
         await expect(savedText).toBeVisible({ timeout: 3000 });
+
+        await optionsPage.reload();
+        await expect(optionsPage.locator('#imageFormat')).toHaveValue('jpg');
     });
 });

@@ -1,6 +1,6 @@
 {
     "name": "honey-in-the-well",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "private": true,
     "type": "module",
     "description": "Full-page screenshot capture with cryptographic integrity verification — a source-of-truth snapshot for the web.",
@@ -33,17 +33,13 @@
     },
     "scripts": {
         "dev": "wxt",
-        "build": "wxt build",
+        "build": "bun run lint && tsc --noEmit && wxt build",
+        "format": "biome check --write .",
         "zip": "wxt zip",
-        "check": "biome check --write .",
-        "lint": "biome lint .",
-        "format": "biome format --write .",
+        "lint": "biome check .",
         "test": "vitest run",
-        "test:integration": "vitest run tests/integration",
-        "test:watch": "vitest",
         "test:coverage": "vitest run --coverage",
         "test:e2e": "playwright test",
-        "typecheck": "tsc --noEmit",
         "postinstall": "wxt prepare"
     },
     "dependencies": {

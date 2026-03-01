@@ -26,14 +26,14 @@ function findByDimension(root: Element, vertical: boolean): ScrollableResult | n
     const viewW = window.innerWidth;
     const viewH = window.innerHeight;
     let maxScroll = 0;
-    let maxElt: Element = root;
+    let maxElt: HTMLElement = root as HTMLElement;
     let maxStyle: CSSStyleDeclaration | null = null;
     let maxBox: ElementBox | null = null;
 
     const search = new SearchNodes(root);
     while (search.hasNext()) {
         let added = false;
-        const node = search.next();
+        const node = search.next() as HTMLElement;
         const visible = vertical ? node.offsetHeight : node.offsetWidth;
         const scrollable = vertical ? node.scrollHeight : node.scrollWidth;
 
@@ -101,7 +101,6 @@ function findByDimension(root: Element, vertical: boolean): ScrollableResult | n
         }
     }
 
-    const _dir = vertical ? 'vertical' : 'horizontal';
     if (maxElt === document.body) {
         return null;
     }

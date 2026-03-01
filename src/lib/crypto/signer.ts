@@ -54,7 +54,7 @@ export async function signCapture(
 ): Promise<SignedCapture> {
     const payload = JSON.stringify(metadata);
     const encoded = new TextEncoder().encode(payload);
-    const signatureBuffer = await signData(privateKeyJwk, encoded);
+    const signatureBuffer = await signData(privateKeyJwk, encoded.buffer as ArrayBuffer);
 
     return {
         metadata,

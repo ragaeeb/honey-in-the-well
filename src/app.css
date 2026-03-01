@@ -1,31 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-	--color-background: oklch(0.99 0.002 90);
-	--color-foreground: oklch(0.18 0.04 60);
-	--color-card: oklch(1 0 0);
-	--color-card-foreground: oklch(0.18 0.04 60);
-	--color-popover: oklch(1 0 0);
-	--color-popover-foreground: oklch(0.18 0.04 60);
-	--color-primary: oklch(0.62 0.19 55);
-	--color-primary-foreground: oklch(0.99 0.002 90);
-	--color-secondary: oklch(0.96 0.02 80);
-	--color-secondary-foreground: oklch(0.28 0.06 55);
-	--color-muted: oklch(0.96 0.01 80);
-	--color-muted-foreground: oklch(0.5 0.04 60);
-	--color-accent: oklch(0.82 0.16 70);
-	--color-accent-foreground: oklch(0.2 0.06 55);
-	--color-destructive: oklch(0.577 0.245 27.325);
-	--color-destructive-foreground: oklch(0.577 0.245 27.325);
-	--color-border: oklch(0.91 0.03 80);
-	--color-input: oklch(0.91 0.03 80);
-	--color-ring: oklch(0.62 0.19 55);
-	--color-success: oklch(0.6 0.2 145);
-	--color-warning: oklch(0.75 0.15 75);
-	--radius-sm: 0.25rem;
-	--radius-md: 0.5rem;
-	--radius-lg: 0.75rem;
-	--radius-xl: 1rem;
+    --color-background: oklch(0.99 0.002 90);
+    --color-foreground: oklch(0.18 0.04 60);
+    --color-card: oklch(1 0 0);
+    --color-card-foreground: oklch(0.18 0.04 60);
+    --color-popover: oklch(1 0 0);
+    --color-popover-foreground: oklch(0.18 0.04 60);
+    --color-primary: oklch(0.62 0.19 55);
+    --color-primary-foreground: oklch(0.99 0.002 90);
+    --color-secondary: oklch(0.96 0.02 80);
+    --color-secondary-foreground: oklch(0.28 0.06 55);
+    --color-muted: oklch(0.96 0.01 80);
+    --color-muted-foreground: oklch(0.5 0.04 60);
+    --color-accent: oklch(0.82 0.16 70);
+    --color-accent-foreground: oklch(0.2 0.06 55);
+    --color-destructive: oklch(0.577 0.245 27.325);
+    --color-destructive-foreground: oklch(0.577 0.245 27.325);
+    --color-border: oklch(0.91 0.03 80);
+    --color-input: oklch(0.91 0.03 80);
+    --color-ring: oklch(0.62 0.19 55);
+    --color-success: oklch(0.6 0.2 145);
+    --color-warning: oklch(0.75 0.15 75);
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
 }
 
 @layer base {

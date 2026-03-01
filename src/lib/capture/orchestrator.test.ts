@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { type CaptureOptions, captureFullPage } from './orchestrator';
 
 vi.mock('../utils/image', () => ({
@@ -53,6 +53,7 @@ function makeTab(overrides?: Partial<chrome.tabs.Tab>): chrome.tabs.Tab {
         selected: false,
         discarded: false,
         autoDiscardable: true,
+        frozen: false,
         groupId: -1,
         url: 'https://example.com',
         ...overrides,
@@ -65,9 +66,11 @@ describe('orchestrator', () => {
         vi.clearAllMocks();
         vi.useFakeTimers();
 
-        vi.mocked(chrome.tabs.captureVisibleTab).mockResolvedValue('data:image/png;base64,mockdata');
-        vi.mocked(chrome.tabs.sendMessage).mockResolvedValue({ script: true });
-        vi.mocked(chrome.scripting.executeScript).mockResolvedValue([]);
+        vi.mocked(chrome.tabs.captureVisibleTab as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(
+            'data:image/png;base64,mockdata',
+        );
+        vi.mocked(chrome.tabs.sendMessage as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({ script: true });
+        vi.mocked(chrome.scripting.executeScript as unknown as ReturnType<typeof vi.fn>).mockResolvedValue([]);
 
         vi.spyOn(document, 'createElement').mockImplementation((tagName: string, options?: ElementCreationOptions) => {
             if (tagName.toLowerCase() === 'canvas') {
@@ -171,8 +174,8 @@ describe('orchestrator', () => {
 
         it('should use default dimensions for blank page without tab dimensions', async () => {
             const tab = makeTab({ url: '' });
-            delete (tab as Record<string, unknown>).width;
-            delete (tab as Record<string, unknown>).height;
+            delete (tab as unknown as { width?: number }).width;
+            delete (tab as unknown as { height?: number }).height;
 
             const promise = captureFullPage(tab, { imageFormat: 'png' });
             await vi.runAllTimersAsync();
@@ -197,7 +200,9 @@ describe('orchestrator', () => {
             chrome.runtime.onMessage.addListener = vi.fn();
             chrome.runtime.onMessage.removeListener = vi.fn();
 
-            vi.mocked(chrome.tabs.sendMessage).mockResolvedValue({ script: true });
+            vi.mocked(chrome.tabs.sendMessage as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+                script: true,
+            });
 
             const promise = captureFullPage(tab, { imageFormat: 'png' });
 
@@ -251,7 +256,9 @@ describe('orchestrator', () => {
             chrome.runtime.onMessage.addListener = vi.fn();
             chrome.runtime.onMessage.removeListener = vi.fn();
 
-            vi.mocked(chrome.tabs.sendMessage).mockResolvedValue({ script: true });
+            vi.mocked(chrome.tabs.sendMessage as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+                script: true,
+            });
 
             const promise = captureFullPage(tab, { imageFormat: 'png' });
             await vi.advanceTimersByTimeAsync(100);
@@ -281,7 +288,9 @@ describe('orchestrator', () => {
 
             chrome.runtime.onMessage.addListener = vi.fn();
             chrome.runtime.onMessage.removeListener = vi.fn();
-            vi.mocked(chrome.tabs.sendMessage).mockResolvedValue({ script: true });
+            vi.mocked(chrome.tabs.sendMessage as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+                script: true,
+            });
 
             captureFullPage(tab, { imageFormat: 'png' });
             await vi.advanceTimersByTimeAsync(100);
@@ -304,7 +313,9 @@ describe('orchestrator', () => {
 
             chrome.runtime.onMessage.addListener = vi.fn();
             chrome.runtime.onMessage.removeListener = vi.fn();
-            vi.mocked(chrome.tabs.sendMessage).mockResolvedValue({ script: true });
+            vi.mocked(chrome.tabs.sendMessage as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+                script: true,
+            });
 
             captureFullPage(tab, { imageFormat: 'png' });
             await vi.advanceTimersByTimeAsync(100);
@@ -324,7 +335,9 @@ describe('orchestrator', () => {
 
             chrome.runtime.onMessage.addListener = vi.fn();
             chrome.runtime.onMessage.removeListener = vi.fn();
-            vi.mocked(chrome.tabs.sendMessage).mockResolvedValue({ script: true });
+            vi.mocked(chrome.tabs.sendMessage as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+                script: true,
+            });
 
             captureFullPage(tab, { imageFormat: 'png' });
             await vi.advanceTimersByTimeAsync(100);

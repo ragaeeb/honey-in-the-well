@@ -3,11 +3,15 @@ import { IntegrityMonitor } from './integrity-monitor';
 
 describe('IntegrityMonitor', () => {
     beforeEach(() => {
+        vi.spyOn(console, 'table').mockImplementation(() => {});
+        vi.spyOn(console, 'log').mockImplementation(() => {});
+        vi.spyOn(console, 'clear').mockImplementation(() => {});
         vi.mocked(crypto.subtle.digest).mockResolvedValue(new Uint8Array([0xab, 0xcd, 0xef]).buffer);
         document.documentElement.innerHTML = '<html><body><div>Test</div></body></html>';
     });
 
     afterEach(() => {
+        vi.restoreAllMocks();
         vi.useRealTimers();
     });
 

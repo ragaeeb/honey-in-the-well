@@ -11,6 +11,8 @@
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![wakatime](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/0aaf5b7a-213d-45ed-b4b2-630ad04b129a.svg)](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/0aaf5b7a-213d-45ed-b4b2-630ad04b129a)
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ragaeeb/honey-in-the-well?utm_source=oss&utm_medium=github&utm_campaign=ragaeeb%2Fhoney-in-the-well&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
+[![codecov](https://codecov.io/gh/ragaeeb/honey-in-the-well/graph/badge.svg?token=7BXCSPFA7O)](https://codecov.io/gh/ragaeeb/honey-in-the-well)
 
 **Integrity-verified full-page screenshots for the web.** Capture an entire page — just like The Wayback Machine — with cryptographic proof that the content hasn't been tampered with.
 
@@ -76,14 +78,8 @@ Creates a distributable `.zip` in `dist/`.
 ## Testing
 
 ```bash
-# Unit tests only (src/)
+# Unit + integration tests
 bun run test
-
-# Integration tests only (tests/integration/)
-bun run test:integration
-
-# Watch mode
-bun run test:watch
 
 # Coverage report
 bun run test:coverage
@@ -92,20 +88,14 @@ bun run test:coverage
 bun run build && bun run test:e2e
 ```
 
-## Linting & Formatting
+## Linting
 
 ```bash
-# Check and auto-fix
-bun run check
-
-# Lint only
+# Lint + format with auto-fix
 bun run lint
 
-# Format only
-bun run format
-
-# Type-check
-bun run typecheck
+# Build always runs lint + type-check first
+bun run build
 ```
 
 ## Project Structure
